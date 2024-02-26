@@ -5,6 +5,7 @@ import axios from 'axios'
 
 function ResetPassword() {
     const [Phone,setPhone] = useState("")
+    const [error,setError] = useState('')
     // const [otp,setOtp] = useState('')
     // const [password,setPassword] = useState('')
 
@@ -12,40 +13,30 @@ function ResetPassword() {
         e.preventDefault()
 
         try {
-            const res = await axios.post("http://localhost:4000/sendotp",Phone)
+            const response = await axios.post('http://localhost:4000/user/sendotp',{Phone})
             console.log(Phone);
-            res.status(200).json({message:'otp send successfully'})
-        } catch (error) {
-            res.status(400).json({message:'failed to send otp '})
+            if(response.data.message){
+              setError(response.data.message)
+            }
+       } catch (error) {
+        if(error.response && error.response.data.error){
+          setError(error.response.data.error);
+        }
         }
     }  
-    async function submit(e){
-        e.preventDefault()
-      console.log(Phone)
-    
-      try{
-        const response = axios.post('http://localhost:4000/user/Forgot',{
-          Phone
-        })
-    
-      }catch(error){
-        console.log('error  has been occured',error)
-      }
-    
-    }
+
   return (
     <div>
        <div className='flex justify-center bg-gray-900'>
         <div className='w-screen h-screen bg-cover flex justify-center items-center' style={{backgroundImage:(`url(${img4})`)}} >
-        <form onSubmit={handleOtp} className='w-[400px] h-[490px] bg-black opacity-60 rounded-lg flex flex-col   justify-center items-center gap-y-10 '>
-          {/* <h1 className='text-white font-bold'>Forgot Password ?</h1> */}
-          <input className='w-80 h-12 placeholder:text-center rounded-lg' value={Phone} onChange={(e)=>(setPhone(e.target.value))} type="text" placeholder='Enter your Phone number' />
-          {/* <input type="text " placeholder='Enter OTP' onChange={(e)=>(setOtp(e.target.value))} className='rounded-lg w-80 h-12 placeholder:text-center' />
-          <input type="text" placeholder='Set new password' onChange={(e)=>(setPassword(e.target.value))} className='rounded-lg w-80 h-12 placeholder:text-center'/>
-          <input type="text" className='w-80 rounded-lg h-12 placeholder:text-center' placeholder='Confirm new password' /> */}
+        <form onSubmit={handleOtp} action='post' className='w-[400px] h-[490px] bg-black opacity-60 rounded-lg flex flex-col   justify-center items-center gap-y-10 '>
+
+          <input className='w-80 h-12 placeholder:text-center rounded-lg' onChange={(e)=>(setPhone(e.target.value))} type="number" placeholder='Enter your Phone number' />
+
           <button type='submit' className='bg-white w-32 h-10 rounded-lg font-bold' >Send OTP</button>
           <input type="text" placeholder='Enter OTP'  className='rounded-lg w-80 h-12 placeholder:text-center'/>
-          <button onClick={handleOtp} className='bg-white w-32 h-10 rounded-lg font-bold' >Submit</button>
+          <p className=' flex justify-center text-red-500'>{error}</p>
+          <button type='button' className='bg-white w-32 h-10 rounded-lg font-bold' >Submit</button>
         </form>
         
       </div>
