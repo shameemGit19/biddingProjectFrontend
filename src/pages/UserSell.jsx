@@ -1,34 +1,50 @@
 import React, { useState } from 'react';
 
 const ProductAddPage = () => {
-  const [product, setProduct] = useState({
-    manufacture: '',
-    description: '',
-    price: '',
-    year: '',
-    model: '',
-  });
+  const [name, setname] = useState('');
+  const [description, setdescription] = useState('');
+  const [price, setprice] = useState('');
+  const [year, setyear] = useState('');
+  const [model, setmodel] = useState('');
+  const [image, setimage] = useState(null);
 
   const handleChange = (e) => {
-    const { product, value } = e.target;
-    setProduct((prevProduct) => ({
-      ...prevProduct,
-      [product]: value,
-    }));
+    const { id, value } = e.target;
+    switch (id) {
+      case 'name':
+        setname(value);
+        break;
+      case 'description':
+        setdescription(value);
+        break;
+      case 'price':
+        setprice(value);
+        break;
+      case 'year':
+        setyear(value);
+        break;
+      case 'model':
+        setmodel(value);
+        break;
+      case 'image':
+        setimage(e.target.files[0]);
+        break;
+      default:
+        break;
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle the submission logic (e.g., send data to server)
-    console.log('Product submitted:', product);
+    console.log('Product submitted:', name, description, price, year, model, image);
     // Reset the form after submission
-    setProduct({
-      manufacture: '',
-      description: '',
-      price: '',
-      year: '',
-      model: '',
-    });
+    setname('');
+    setdescription('');
+    setprice('');
+    setyear('');
+    setmodel('');
+    setimage(null);
   };
 
   return (
@@ -43,8 +59,8 @@ const ProductAddPage = () => {
             type="text"
             id="name"
             name="name"
-            value={product.manufacture}
-            onChange={handleChange}
+            value={name}
+            onChange={(e) => setname(e.target.value)}
             className="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -55,8 +71,8 @@ const ProductAddPage = () => {
           <textarea
             id="description"
             name="description"
-            value={product.description}
-            onChange={handleChange}
+            value={description}
+            onChange={(e) => setdescription(e.target.value)}
             className="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500"
           ></textarea>
         </div>
@@ -68,22 +84,21 @@ const ProductAddPage = () => {
             type="text"
             id="price"
             name="price"
-            // value={product.price}
-            onChange={handleChange}
+            value={price}
+            onChange={(e) => setprice(e.target.value)}
             className="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500"
           />
-          <input type="number" name="" id="" />
         </div>
         <div className="mb-4">
           <label htmlFor="year" className="block text-gray-700 text-sm font-bold mb-2">
             Year
           </label>
           <input
-            type="text"
+            type="number"
             id="year"
             name="year"
-            value={product.year}
-            onChange={handleChange}
+            value={year}
+            onChange={(e) => setyear(e.target.value)}
             className="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -95,8 +110,21 @@ const ProductAddPage = () => {
             type="text"
             id="model"
             name="model"
-            value={product.model}
+            value={model}
+            onChange={(e) => setmodel(e.target.value)}
+            className="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="image" className="block text-gray-700 text-sm font-bold mb-2">
+            Image
+          </label>
+          <input
+            type="file"
+            id="image"
+            name="image"
             onChange={handleChange}
+            accept="image/*"
             className="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500"
           />
         </div>
