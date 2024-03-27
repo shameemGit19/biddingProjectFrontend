@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+// import {useHistory} from 'react-router-dom'
 
 const ProductAddPage = () => {
+  // const history = useHistory();
   const [name, setname] = useState('');
   const [description, setdescription] = useState('');
   const [price, setprice] = useState('');
   const [year, setyear] = useState('');
   const [model, setmodel] = useState('');
   const [image, setimage] = useState(null);
+
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -34,17 +38,38 @@ const ProductAddPage = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle the submission logic (e.g., send data to server)
-    console.log('Product submitted:', name, description, price, year, model, image);
-    // Reset the form after submission
-    setname('');
-    setdescription('');
-    setprice('');
-    setyear('');
-    setmodel('');
-    setimage(null);
+
+    const formData= new FormData();
+    formData.append('name',name);
+    formData.append('description',description)
+    formData.append('price',price)
+    formData.append('year',year)
+    formData.append('model',model)
+    formData.append('image',image)
+
+    try{
+      const response= await axios.post('http://localhost:4000/user/addproduct',formData,{
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log(response);
+  
+
+    }catch(error){
+      console.error('Error in addproduct page',error)
+    }
+    
+    // console.log('Product submitted:', name, description, price, year, model, image);
+    // // Reset the form after submission
+    // setname('');
+    // setdescription('');
+    // setprice('');
+    // setyear('');
+    // setmodel('');
+    // setimage(null);
   };
 
   return (
@@ -134,6 +159,7 @@ const ProductAddPage = () => {
         >
           Add Product
         </button>
+        <button></button>
       </form>
     </div>
   );

@@ -8,6 +8,9 @@ import Home from '../pages/Home'
 import UserBuy from '../pages/UserBuy'
 import UserSell from '../pages/UserSell'
 import Bidding from '../pages/Bidding'
+import ChatPage from '../pages/Chat'
+import Profile from '../pages/Profile'
+
 function CommonRouter() {
   return (
     <>
@@ -20,6 +23,8 @@ function CommonRouter() {
         <Route path='/buy' element={<UserBuy/>}></Route>
         <Route path='/sell' element={<UserSell/>}></Route>
         <Route path='/bid' element={<Bidding/>}></Route>
+        <Route path='/chat' element={<ChatPage/>}></Route>
+        <Route path='/profile' element={<Profile/>}></Route>
       </Routes>
     </>
   )

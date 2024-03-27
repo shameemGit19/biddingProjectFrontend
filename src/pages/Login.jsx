@@ -41,7 +41,7 @@ function Login() {
           <h1 className='text-white'>Login</h1>
           <input className='w-[250px] text-center sm:w-[300px] md:w-[350px] h-12 placeholder:text-center' onChange={(e)=>(setUsername(e.target.value))} type="text" placeholder='Enter your Username' />
           <input type="password " placeholder='Enter your password' onChange={(e)=>(setPassword(e.target.value))} className='text-center w-[250px] sm:w-[300px] md:w-[350px] h-12 placeholder:text-center' />
-          <button type='submit' className='bg-white  w-32 h-10 rounded-lg font-bold'>Submit</button>
+          <button type='submit' className='bg-white hover:font-white w-32 h-10 rounded-lg font-bold'>Submit</button>
           <div className='flex justify-center'><p className='text-red-500'>{error}</p></div>
           <Link to={'/reset'}><h6 className='text-blue-100 -mt-6 ml-40'><u>Forgot your password?</u></h6></Link>
         </form>

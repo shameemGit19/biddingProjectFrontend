@@ -11,7 +11,7 @@ function Home() {
         <div>
         <nav className='w-full flex  gap-5 text-white font-semibold justify-between p-10'>
           <li className='list-none hover:text-red-500'>
-          <NavLink>Profile</NavLink>
+          <button className=' hover:text-black' onClick={()=>{navigate('/profile')}}>Profile</button>
           </li>
          <li className='text-black list-none hover:text-red-500'>
          <NavLink>Logout</NavLink>
