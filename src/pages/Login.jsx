@@ -11,6 +11,10 @@ function Login() {
   async function submit(e){
     console.log(username,password)
     e.preventDefault()
+
+    if(!username || !password ){
+      return setError('Please in all fields')
+    }
   
     try{
       const response = await axios.post('http://localhost:4000/user/login',{
@@ -28,6 +32,9 @@ function Login() {
       
     }catch(error){
       console.log('error  has been occured',error)
+      if(error.response && error.response.data.error){
+        setError(error.response.data.error);
+      }
     }
   
   }

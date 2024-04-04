@@ -50,13 +50,21 @@ const ProductAddPage = () => {
     formData.append('image',image)
 
     try{
-      const response= await axios.post('http://localhost:4000/user/addproduct',formData,{
+      console.log(formData,'formdata')
+
+      const response = await axios.post('http://localhost:4000/user/addproduct',formData,{
         headers: {
-            'Content-Type': 'multipart/form-data'
+          'Content-Type': 'multipart/form-data'
         }
       });
+   
       console.log(response);
-  
+      setname('');
+      setdescription('');
+      setprice('');
+      setyear('');
+      setmodel('');
+      setimage('');
 
     }catch(error){
       console.error('Error in addproduct page',error)
@@ -73,8 +81,8 @@ const ProductAddPage = () => {
   };
 
   return (
-    <div className="container mx-auto mt-8">
-      <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+    <div className="container bg-blue-50 mx-auto mt-8">
+      <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-blue-200 p-6 rounded-md shadow-md">
         <h2 className="text-2xl font-bold mb-6">Add Product</h2>
         <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
@@ -155,7 +163,7 @@ const ProductAddPage = () => {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none"
+          className="bg-blue-500 text-white px-4 py-2 justify-center rounded hover:bg-blue-700 focus:outline-none"
         >
           Add Product
         </button>
