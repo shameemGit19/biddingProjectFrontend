@@ -8,6 +8,7 @@ function Login() {
   const [password,setPassword] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
+
   async function submit(e){
     console.log(username,password)
     e.preventDefault()
@@ -21,7 +22,7 @@ function Login() {
         username,
         password
       })
-
+console.log(response.data.token,'hlo' );
       if(response.data.message ){
         setError(response.data.message)
         navigate('/Home')

@@ -1,37 +1,34 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-// import {useHistory} from 'react-router-dom'
 
 const ProductAddPage = () => {
-  // const history = useHistory();
-  const [name, setname] = useState('');
-  const [description, setdescription] = useState('');
-  const [price, setprice] = useState('');
-  const [year, setyear] = useState('');
-  const [model, setmodel] = useState('');
-  const [image, setimage] = useState(null);
-
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
+  const [year, setYear] = useState('');
+  const [model, setModel] = useState('');
+  const [image, setImage] = useState('');
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
+    const { id, value, files } = e.target;
     switch (id) {
       case 'name':
-        setname(value);
+        setName(value);
         break;
       case 'description':
-        setdescription(value);
+        setDescription(value);
         break;
       case 'price':
-        setprice(value);
+        setPrice(value);
         break;
       case 'year':
-        setyear(value);
+        setYear(value);
         break;
       case 'model':
-        setmodel(value);
+        setModel(value);
         break;
       case 'image':
-        setimage(e.target.files[0]);
+        setImage(files[0]);
         break;
       default:
         break;
@@ -40,50 +37,36 @@ const ProductAddPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('description', description);
+    formData.append('price', price);
+    formData.append('year', year);
+    formData.append('model', model);
+    formData.append('image', image);
 
-    const formData= new FormData();
-    formData.append('name',name);
-    formData.append('description',description)
-    formData.append('price',price)
-    formData.append('year',year)
-    formData.append('model',model)
-    formData.append('image',image)
-
-    try{
-      console.log(formData,'formdata')
-
-      const response = await axios.post('http://localhost:4000/user/addproduct',formData,{
+    try {
+      const response = await axios.post('http://localhost:4000/user/addproduct', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-   
       console.log(response);
-      setname('');
-      setdescription('');
-      setprice('');
-      setyear('');
-      setmodel('');
-      setimage('');
-
-    }catch(error){
-      console.error('Error in addproduct page',error)
+      setName('');
+      setDescription('');
+      setPrice('');
+      setYear('');
+      setModel('');
+      setImage('');
+    } catch (error) {
+      console.error('Error in addproduct page', error);
     }
-    
-    // console.log('Product submitted:', name, description, price, year, model, image);
-    // // Reset the form after submission
-    // setname('');
-    // setdescription('');
-    // setprice('');
-    // setyear('');
-    // setmodel('');
-    // setimage(null);
   };
 
   return (
-    <div className="container bg-blue-50 mx-auto mt-8">
-      <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-blue-200 p-6 rounded-md shadow-md">
-        <h2 className="text-2xl font-bold mb-6">Add Product</h2>
+    <div className="container mx-auto mt-8 px-4 " style={{ backgroundImage: 'url("https://source.unsplash.com/1600x900/?luxury,car")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed' }}>
+      <form onSubmit={handleSubmit} className="max-w-screen-sm mx-auto bg-white/80 p-6 rounded-md shadow-md backdrop-blur-sm">
+        <h2 className="text-2xl text-center font-bold mb-6 text-blue-800">Add Product</h2>
         <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
             Manufacture
@@ -93,7 +76,7 @@ const ProductAddPage = () => {
             id="name"
             name="name"
             value={name}
-            onChange={(e) => setname(e.target.value)}
+            onChange={handleChange}
             className="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -105,7 +88,7 @@ const ProductAddPage = () => {
             id="description"
             name="description"
             value={description}
-            onChange={(e) => setdescription(e.target.value)}
+            onChange={handleChange}
             className="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500"
           ></textarea>
         </div>
@@ -118,7 +101,7 @@ const ProductAddPage = () => {
             id="price"
             name="price"
             value={price}
-            onChange={(e) => setprice(e.target.value)}
+            onChange={handleChange}
             className="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -131,7 +114,7 @@ const ProductAddPage = () => {
             id="year"
             name="year"
             value={year}
-            onChange={(e) => setyear(e.target.value)}
+            onChange={handleChange}
             className="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -144,7 +127,7 @@ const ProductAddPage = () => {
             id="model"
             name="model"
             value={model}
-            onChange={(e) => setmodel(e.target.value)}
+            onChange={handleChange}
             className="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -163,11 +146,10 @@ const ProductAddPage = () => {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 justify-center rounded hover:bg-blue-700 focus:outline-none"
+          className="bg-blue-800 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none w-full"
         >
           Add Product
         </button>
-        <button></button>
       </form>
     </div>
   );

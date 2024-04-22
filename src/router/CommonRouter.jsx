@@ -10,6 +10,7 @@ import UserSell from '../pages/UserSell'
 import Bidding from '../pages/Bidding'
 import ChatPage from '../pages/Chat'
 import Profile from '../pages/Profile'
+import ViewProduct from '../pages/ViewProduct'
 
 function CommonRouter() {
   return (
@@ -25,6 +26,7 @@ function CommonRouter() {
         <Route path='/bid' element={<Bidding/>}></Route>
         <Route path='/chat' element={<ChatPage/>}></Route>
         <Route path='/profile' element={<Profile/>}></Route>
+        <Route path='/view' element={<ViewProduct/>}></Route>
       </Routes>
     </>
   )

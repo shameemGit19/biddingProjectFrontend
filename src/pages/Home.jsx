@@ -11,7 +11,7 @@ function Home() {
         <div>
         <nav className='w-full flex  gap-5 text-white font-semibold justify-between p-10'>
           <li className='list-none hover:text-red-500'>
-          <button className=' hover:text-black' onClick={()=>{navigate('/profile')}}>Profile</button>
+          <button className=' hover:text-red-500' onClick={()=>{navigate('/profile')}}>Profile</button>
           </li>
          <li className='text-black list-none hover:text-red-500'>
          <NavLink>Logout</NavLink>
@@ -27,6 +27,15 @@ function Home() {
           <button className=' hover:text-black' onClick={()=>{navigate('/sell')}}>Sell</button>
         </nav>
       </div>
+      <div className='flex w-full justify-center'>
+      <button
+        type="submit"
+          className="bg-green-500 text-white px-4 py-2 mt-6 justify-center rounded hover:bg-green-700 focus:outline-none"
+          onClick={()=>{navigate('/view')}}
+        >
+          View your products
+        </button>
+        </div>
       </div>
     </div>
   )

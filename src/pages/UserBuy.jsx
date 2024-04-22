@@ -46,20 +46,18 @@ const ProductListPage = () => {
   ]);
 
   return (
-    <div className="container mx-auto mt-8">
-      <h2 className="text-3xl font-bold mb-6 text-center">Car Collection</h2>
+    <div className="container mx-auto bg-black text-white h-screen mt-8 px-4">
+      <h2 className="text-4xl font-bold mb-6 text-center">Car Collection</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map((product) => (
-          <Link key={product.id} to={`/bid`}>
-            <div
-              className="bg-white p-6 rounded-md shadow-md transition-transform transform hover:scale-105 overflow-hidden"
-            >
-              <img src={product.image} alt={product.name} className="mb-4 w-full h-32 object-cover" />
+          <Link key={product.id} to={`/bid`} className="hover:shadow-lg">
+            <div className="bg-gray-800 p-6 rounded-lg shadow-md transition-transform transform hover:scale-105 overflow-hidden">
+              <img src={product.image} alt={product.name} className="mb-4 w-full h-40 object-cover rounded" />
               <h3 className="text-xl font-bold mb-2">{product.name}</h3>
-              <p className="text-gray-700 mb-4">{product.description}</p>
-              <p className="text-gray-800 font-semibold mb-2">Base Price: {product.price}</p>
-              <p className="text-gray-700">Year: {product.year}</p>
-              <p className="text-gray-700">Model: {product.model}</p>
+              <p className="text-gray-400 mb-4">{product.description}</p>
+              <p className="text-gray-300 font-bold mb-2">Base Price: {product.price}</p>
+              <p className="text-gray-500">Year: {product.year}</p>
+              <p className="text-gray-500">Model: {product.model}</p>
             </div>
           </Link>
         ))}
