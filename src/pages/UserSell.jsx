@@ -1,5 +1,7 @@
+import axiosInstance from '../api/axios';
 import React, { useState } from 'react';
-import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductAddPage = () => {
   const [name, setName] = useState('');
@@ -8,7 +10,10 @@ const ProductAddPage = () => {
   const [year, setYear] = useState('');
   const [model, setModel] = useState('');
   const [image, setImage] = useState('');
+  
 
+
+ 
   const handleChange = (e) => {
     const { id, value, files } = e.target;
     switch (id) {
@@ -46,7 +51,7 @@ const ProductAddPage = () => {
     formData.append('image', image);
 
     try {
-      const response = await axios.post('http://localhost:4000/user/addproduct', formData, {
+      const response = await axiosInstance.post('/user/addproduct', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -58,6 +63,7 @@ const ProductAddPage = () => {
       setYear('');
       setModel('');
       setImage('');
+      toast.success('Product Added Successfully')
     } catch (error) {
       console.error('Error in addproduct page', error);
     }
@@ -151,6 +157,7 @@ const ProductAddPage = () => {
           Add Product
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 };
