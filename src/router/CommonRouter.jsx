@@ -23,7 +23,7 @@ function CommonRouter() {
         <Route path='/home' element={<Home/>}></Route>
         <Route path='/buy' element={<UserBuy/>}></Route>
         <Route path='/sell' element={<UserSell/>}></Route>
-        <Route path='/bid' element={<Bidding/>}></Route>
+        <Route path='/bid/:carId' element={<Bidding/>}></Route>
         <Route path='/chat' element={<ChatPage/>}></Route>
         <Route path='/profile' element={<Profile/>}></Route>
         <Route path='/view' element={<ViewProduct/>}></Route>

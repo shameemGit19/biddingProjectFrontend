@@ -12,8 +12,6 @@ const ProductAddPage = () => {
   const [image, setImage] = useState('');
   
 
-
- 
   const handleChange = (e) => {
     const { id, value, files } = e.target;
     switch (id) {
