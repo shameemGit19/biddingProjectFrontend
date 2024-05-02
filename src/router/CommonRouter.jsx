@@ -27,6 +27,7 @@ function CommonRouter() {
         <Route path='/chat' element={<ChatPage/>}></Route>
         <Route path='/profile' element={<Profile/>}></Route>
         <Route path='/view' element={<ViewProduct/>}></Route>
+        
       </Routes>
     </>
   )

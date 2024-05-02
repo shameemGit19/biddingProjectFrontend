@@ -1,18 +1,33 @@
-import React, { useState } from 'react';
-import './ProfileSection.css'; // Import CSS for styling
+import React, { useState, useEffect } from 'react';
+import axiosInstance from '../api/axios'
+import './ProfileSection.css'; 
+import { useParams } from 'react-router';
 
 const ProfileSection = () => {
-  const [user, setUser] = useState({
-    username: 'example_user',
-    email: 'user@example.com',
-    fullName: 'John Doe',
-    location: 'City, Country',
-    phoneNumber: '+1234567890',
-    // Add more user profile data as needed
-  });
-
+  const [user, setUser] = useState('')
   const [editMode, setEditMode] = useState(false);
   const [updatedUser, setUpdatedUser] = useState({ ...user });
+
+  const { userId } = useParams()
+  console.log(userId, "user params");
+
+  useEffect(()=> {
+    const fetchData = async () => { 
+      try {
+        console.log('profile');
+        const response = await axiosInstance.get(`/user/userProfile/${userId}`)
+      console.log(response.data.userProfile);
+      setUser(response.data.userProfile)
+      setUpdatedUser(response.data.userProfile);  // Also initialize updatedUser here
+
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchData()
+  },[])
+
+ 
 
   const handleEditProfile = () => {
     setEditMode(true);

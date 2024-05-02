@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../api/axios'
-import { useParams } from 'react-router';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate, useParams } from 'react-router';
 const CarBiddingPage = () => {
   const [bidProduct, setBidProduct] = useState('')
+  const [currentBid, setCurrentBid] = useState(0);
+  const [bidAmount, setBidAmount]= useState('')
 
   const { carId } = useParams()
   console.log(carId, " params");
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,12 +28,20 @@ const CarBiddingPage = () => {
 
   const handleBidSubmit = (e) => {
     e.preventDefault();
-    const newBidAmount = parseFloat(bidAmount);
-    if (!isNaN(newBidAmount) && newBidAmount > currentBid) {
+    console.log('hi'); 
+    if (bidAmount < bidProduct.price) {
+      console.log('Amount is less than the base price');
+      toast.warning('Bid amount should be higher than the base price')
+    } else if (bidAmount > currentBid) {
+      const newBidAmount = parseFloat(bidAmount);
       setCurrentBid(newBidAmount);
       setBidAmount('');
+    } else {
+      console.log('Bid amount is not higher than the current highest bid');
+      toast.warning("Bid amount should be higher than the current highest bid")
     }
   };
+  
 
   const handleChatButtonClick = () => {
     // Add logic for opening the chat here
@@ -51,7 +64,7 @@ const CarBiddingPage = () => {
 
             </div>
             <p className="text-white mb-2 text-center">Base Price: ${bidProduct.price}</p>
-            <p className="text-red-600 font-bold mb-2 text-center">Current Highest Bid: ${'0'}</p>
+            <p className="text-red-600 font-bold mb-2 text-center">Current Highest Bid: ${currentBid}</p>
           </div>
           <form onSubmit={handleBidSubmit} className="flex flex-col items-center">
             <label htmlFor="bidAmount" className="text-white text-sm font-bold mb-2">
@@ -62,7 +75,7 @@ const CarBiddingPage = () => {
                 type="number"
                 id="bidAmount"
                 name="bidAmount"
-                value={'bid'}
+                value={bidAmount.price}
                 onChange={(e) => setBidAmount(e.target.value)}
                 className="w-2/3 px-3 py-2 border rounded-l focus:outline-none focus:border-blue-500"
                 min={'cur' + 1}
@@ -71,6 +84,7 @@ const CarBiddingPage = () => {
               <button
                 type="submit"
                 className="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-700 focus:outline-none ml-1"
+                
               >
                 Bid
               </button>
@@ -86,6 +100,8 @@ const CarBiddingPage = () => {
           </button>
         </div>
       </div>
+      <ToastContainer />
+
     </div>
   );
 };

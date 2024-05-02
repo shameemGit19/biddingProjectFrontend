@@ -1,10 +1,28 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import img from '../assets/images/3847ca10f34ff57908c755524866f8d4.jpg'
 import { NavLink, useNavigate } from 'react-router-dom'
+import axiosInstance from '../api/axios'
 
 
-function Home() {
+const userDetails =()=> {
+  const [userData, setUserData] = useState([])
   const navigate  = useNavigate()
+
+  useEffect(()=>{
+    const fetchData = async ()=>{
+      try {
+        console.log('hello show user')
+        const response = await axiosInstance.get('/user/showUser')
+        console.log(response.data.getUser);
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchData();
+  },[]);
+
+
+
   return (
     <div>
       <div className='w-screen h-screen bg-cover  ' style={{backgroundImage:(`url(${img})`)}}>
@@ -41,4 +59,4 @@ function Home() {
   )
 }
 
-export default Home
+export default userDetails

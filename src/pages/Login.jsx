@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import img3 from '../assets/images/3847ca10f34ff57908c755524866f8d4.jpg';
 import { Link, useNavigate } from 'react-router-dom';
+import {jwtDecode} from "jwt-decode"
 import axios from 'axios';
 
 function Login() {
@@ -25,6 +26,9 @@ function Login() {
       // Check if login was successful and a token was received
       if (response.data.token) {
         localStorage.setItem('token', response.data.token); // Storing the token
+       const token = localStorage.getItem("token")
+       const decodeToken = jwtDecode(token)
+       console.log(decodeToken ," token");
         navigate('/home'); // Redirect to home page on successful login
       } else {
         // If the login failed and an error message was provided
